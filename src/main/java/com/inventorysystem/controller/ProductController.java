@@ -1,81 +1,47 @@
 package com.inventorysystem.controller;
 
-
 import com.inventorysystem.entity.Product;
-import com.inventorysystem.respository.ProductRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.inventorysystem.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @GetMapping
-    public List<Product> getAllProducts(){
-        return productRepository.findAll();
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
     }
 
-    /**
-     * Creates a new product
-     * @param product The product data from the request body.
-     * @return The saved Product object
-     */
+    @PostMapping
     public ResponseEntity<?> createProduct(@RequestBody Product product) {
-        // Save the product
-        Product savedProduct = productRepository.save(product);
+        Product savedProduct = productService.createProduct(product);
         return ResponseEntity.ok(savedProduct);
     }
 
-    /** * Retrieves a product by ID. * @param id The ID of the product. * @return A ResponseEntity containing the Product object. */
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Product not found with ID: " + id));
+        Product product = productService.getProductById(id);
         return ResponseEntity.ok(product);
-    } /**
-     * Updates an existing product.
-     *  @param id The ID of the product to update.
-     * @param productDetails The updated product data.
-     * @return A ResponseEntity containing the updated Product object.
-     */
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(
             @PathVariable Long id, @RequestBody Product productDetails) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Product not found with ID: " + id));
-
-        // Update the product's details using Lombok-generated setters
-        product.setName(productDetails.getName());
-        product.setDescription(productDetails.getDescription());
-        product.setQuantity(productDetails.getQuantity());
-        product.setPrice(productDetails.getPrice());
-        // Save the updated product
-        Product updatedProduct = productRepository.save(product);
-
+        Product updatedProduct = productService.updateProduct(id, productDetails);
         return ResponseEntity.ok(updatedProduct);
     }
 
-    /**
-     * Deletes a product by ID.
-     * @param id The ID of the product to delete.
-     * @return A ResponseEntity with HTTP status.
-     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Product not found with ID: " + id));
-
-        productRepository.delete(product);
-
+        productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 }
