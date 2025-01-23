@@ -1,8 +1,6 @@
 package com.inventorysystem.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 @Table(name = "products")
 @Entity
 public class Product {
@@ -10,8 +8,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "productName", nullable = false)
+    private String productName;
+
+    @Column(name = "productCategory", nullable = false)
+    private String productCategory;
 
     @Column(name = "description")
     private String description;
@@ -22,16 +23,10 @@ public class Product {
     @Column(name = "price", nullable = false)
     private double price;
 
+
+
     public Product(){
 
-    }
-
-    public Product(Long id, String name, String description, int quantity, double price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-        this.price = price;
     }
 
     public Long getId() {
@@ -42,12 +37,20 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCatergory) {
+        this.productCategory = productCatergory;
     }
 
     public String getDescription() {
