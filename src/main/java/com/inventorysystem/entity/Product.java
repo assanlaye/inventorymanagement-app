@@ -14,8 +14,6 @@ public class Product {
     @Column(name = "productCategory", nullable = false)
     private String productCategory;
 
-    @Column(name = "description")
-    private String description;
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
@@ -49,17 +47,11 @@ public class Product {
         return productCategory;
     }
 
-    public void setProductCategory(String productCatergory) {
-        this.productCategory = productCatergory;
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getQuantity() {
         return quantity;
