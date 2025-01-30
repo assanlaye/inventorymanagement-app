@@ -1,5 +1,6 @@
 package com.inventorysystem.entity;
 
+import com.inventorysystem.dto.ProductDto;
 import jakarta.persistence.*;
 @Table(name = "products")
 @Entity
@@ -21,6 +22,8 @@ public class Product {
     @Column(name = "price", nullable = false)
     private double price;
 
+    @Column(name = "available", nullable = false)
+    private boolean available;
 
 
     public Product(){
@@ -51,7 +54,13 @@ public class Product {
         this.productCategory = productCategory;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
 
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
 
     public int getQuantity() {
         return quantity;
@@ -67,5 +76,19 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public ProductDto getProductDto(){
+        ProductDto productDto = new ProductDto();
+
+        productDto.setId(id);
+        productDto.setProductName(productName);
+        productDto.setProductCategory(productCategory);
+        productDto.setPrice(price);
+        productDto.setQuantity(quantity);
+        productDto.setAvailable(available);
+
+        return productDto;
+
     }
 }

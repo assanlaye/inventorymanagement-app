@@ -1,6 +1,5 @@
-package com.inventorysystem.service;
+package com.inventorysystem.service.customer.jwt;
 
-import com.inventorysystem.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -49,7 +48,7 @@ public class JwtService {
                 .getPayload();
     }
 
-    public String generateToken(User user){
+    public String generateToken(UserDetails user){
         String token = Jwts
                 .builder()
                 .subject(user.getUsername())
