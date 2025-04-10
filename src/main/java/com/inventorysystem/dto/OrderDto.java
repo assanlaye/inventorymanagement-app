@@ -22,6 +22,8 @@ public class OrderDto {
 
     private String productCategory;
 
+    private int Quantity;
+
     private Long userId;
 
     private String username;
@@ -90,6 +92,14 @@ public class OrderDto {
         this.productCategory = productCategory;
     }
 
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        Quantity = quantity;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -105,4 +115,7 @@ public class OrderDto {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
+
 }

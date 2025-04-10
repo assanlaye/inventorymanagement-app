@@ -21,6 +21,8 @@ public class Order {
 
     private double price;
 
+    private int quantity;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
@@ -64,6 +66,14 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -102,6 +112,7 @@ public class Order {
         orderDto.setOrderDate(orderDate);
         orderDto.setDeliveryDate(deliveryDate);
         orderDto.setOrderStatus(orderStatus);
+        orderDto.setQuantity(quantity);
 
         orderDto.setUserId(user.getId());
         orderDto.setUsername(user.getFirstName());
@@ -109,6 +120,7 @@ public class Order {
         orderDto.setProductId(product.getId());
         orderDto.setProductName(product.getProductName());
         orderDto.setProductCategory(product.getProductCategory());
+
 
         return orderDto;
     }
